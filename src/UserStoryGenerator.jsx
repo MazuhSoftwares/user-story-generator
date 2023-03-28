@@ -85,11 +85,19 @@ function reducer(state, action) {
 function EditableStoryDetail(props) {
   const elementRef = useRef(null);
 
-  const setValue = (value) => {
-    elementRef.current.textContent = value.trim() || props.children;
+  const setValue = (typedValue) => {
+    const updatingValue = typedValue.trim() || props.children;
+    elementRef.current.textContent = updatingValue;
 
     if (props.onChange) {
-      props.onChange(value);
+      props.onChange(updatingValue);
+    }
+  };
+
+  const handleKeyDown = (event) => {
+    if (["Enter", "Esc"].includes(event.key)) {
+      event.preventDefault();
+      elementRef.current.blur();
     }
   };
 
@@ -116,6 +124,7 @@ function EditableStoryDetail(props) {
       className="editable-story-detail"
       contentEditable={true}
       suppressContentEditableWarning={true}
+      onKeyDown={handleKeyDown}
       onFocus={handleFocus}
       onBlur={handleBlur}
     />
