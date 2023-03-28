@@ -14,7 +14,7 @@ export default function App() {
 
 function PageHeader() {
   return (
-    <header>
+    <header className="page-header">
       <h1>História de usuário.</h1>
     </header>
   );
